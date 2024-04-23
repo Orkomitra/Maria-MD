@@ -193,6 +193,35 @@ await Maria.sendMessage(from, {text: Ayushlod[i], edit: key });
 }
 }
 
+async function obfus(query) {
+    return new Promise((resolve, reject) => {
+        try {
+        const obfuscationResult = jsobfus.obfuscate(query,
+        {
+            compact: false,
+            controlFlowFlattening: true,
+            controlFlowFlatteningThreshold: 1,
+            numbersToExpressions: true,
+            simplify: true,
+            stringArrayShuffle: true,
+            splitStrings: true,
+            stringArrayThreshold: 1
+        }
+        )
+        const result = {
+            status: 200,
+            author: `${ownername}`,
+            result: obfuscationResult.getObfuscatedCode()
+        }
+        resolve(result)
+    } catch (e) {
+        reject(e)
+    }
+    })
+}
+
+
+
 async function Telesticker(url) {
     return new Promise(async (resolve, reject) => {
         if (!url.match(/(https:\/\/t.me\/addstickers\/)/gi)) return reply('Enter your url telegram sticker link')
@@ -1784,6 +1813,8 @@ case 'truth':
 │⋊ 𝕋𝕠𝕥𝕒𝕝𝕔𝕞𝕕: ${mariafeature()}
 │⋊ 𝕆𝕗𝕗𝕚𝕔𝕚𝕒𝕝 𝔾𝕣𝕠𝕦𝕡: https://gg.gg/Maria-support
 ╰────────────┈平和
+ 🎀𝐅𝐨𝐥𝐥𝐨𝐰 𝐨𝐧: https://www.instagram.com/ayushpandeyy_023
+
 Here's the list of my Commands.🔖
 ${readmore}
 ┌──⊰ _*🧧GENERAL🧧*_
@@ -1875,6 +1906,11 @@ ${readmore}
 │⊳ 📥 ${prefix}igvideo 
 │⊳ 📥 ${prefix}pinterest
 │⊳ 📥 ${prefix}apk
+└──────────⊰
+┌──⊰ _*✨️WALLPAPER✨️*_
+│⊳ 🎴 ${prefix}Doraemon
+│⊳ 🎴 ${prefix}pokemon 
+│⊳ 🎴 ${prefix}zero-two 
 └──────────⊰
 ┌──⊰ _*🎐SnapBlend🎐*_
 │⊳🎀 ${prefix}shadow
@@ -2180,6 +2216,35 @@ case 'maal': {
 }
 break;
 
+case 'doraemon': {
+  if (!m.isGroup) return reply(mess.group);
+  reply(mess.wait);
+  await Maria.sendMessage(m.chat, {
+    image: await getBuffer('https://doremon-api.onrender.com'), // Change the URL to your Doraemon wallpaper
+    caption: 'Check out this Doraemon wallpaper! 🤖✨\n\n© Ayush Botz.Inc', // Customize the caption as you like
+  }, { quoted: m });
+}
+break;
+
+case 'pokemon': {
+  if (!m.isGroup) return reply(mess.group);
+  reply(mess.wait);
+  await Maria.sendMessage(m.chat, {
+    image: await getBuffer('https://ayush-pokemon.onrender.com/'), // Change the URL to your Pokemon wallpaper
+    caption: 'Here is a Pokemon wallpaper for you! ⚡🔥\n\n© Ayush Botz.Inc', // Customize the caption as you like
+  }, { quoted: m });
+}
+break;
+
+case 'zero-two': {
+  if (!m.isGroup) return reply(mess.group);
+  reply(mess.wait);
+  await Maria.sendMessage(m.chat, {
+    image: await getBuffer('https://ayush-zero-two.onrender.com'), // Change the URL to your Zero-Two wallpaper
+    caption: 'Enjoy this Zero-Two wallpaper! ❤️🖤\n\n© Ayush Botz.Inc', // Customize the caption as you like
+  }, { quoted: m });
+}
+break;
 
 			    ////
 			    case 'hd': {
