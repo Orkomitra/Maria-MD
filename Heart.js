@@ -1537,7 +1537,7 @@ Maria.sendMessage(m.chat, { image: { url: "https://graph.org/file/c8ad7dc322c0b9
 
 
  case 'owner': {
-                Maria.sendContact(m.chat, global.ownernumber, m)
+                Maria.sendContact(m.chat, Config.ownernumber, m)
             }
             break;
             
@@ -2393,12 +2393,10 @@ case 'welcome':
 
 
 case 'git': case 'gitclone':
-if (!args[0]) return reply(`🧩Where is the link?\n🔮Example :\n${prefix}${command} https://github.com/AYUSH-PANDEY023/Maria-Md `)
-if (!isUrl(args[0]) && !args[0].includes('github.com')) return replygcMaria(`Link invalid!!`)
-let regex1 = /(?:https|git)(?::\/\/|@)github\.com[\/:]([^\/:]+)\/(.+)/i
-    [ user, repo] = args[0].match(regex1) || []
-    repo = repo.replace(/.git$/, '')
-    let url = `https://api.github.com/repos/${user}/${repo}/zipball`
+if (!text) return reply(`🧩Where is the link?\n🔮Example :\n${prefix}${command} https://github.com/AYUSH-PANDEY023/Maria-Md `)
+if (!isUrl(text) && !text.includes('github.com')) return reply(`Link invalid!!`)
+    let repo = text.split('/');
+    let url = `https://api.github.com/repos/${repo[3]}/${repo[4]}/zipball`
     let filename = (await fetch(url, {method: 'HEAD'})).headers.get('content-disposition').match(/attachment; filename=(.*)/)[1]
     Maria.sendMessage(m.chat, { document: { url: url }, fileName: filename+'.zip', mimetype: 'application/zip' }, { quoted: m }).catch((err) => reply(mess.error))
 break;
@@ -2791,7 +2789,7 @@ break;
 case 'element':
     if(!args[0]) return reply(`Please use this command like this: ${prefix}element br`);
     const queryy = args.join(" ");
-   const search = await pTable*(queryy);
+   const search = await pTable(queryy);
    if (search === undefined) return reply(`❗️Please provide me a valid element by visiting here !\n\nhttps://en.m.wikipedia.org/wiki/Periodic_table`);
 
    const responsee = await npt.getByNumber(search.number);
@@ -2810,7 +2808,7 @@ caption += `⚫ *Shells:* ${responsee.shells.join(", ")}\n`;
 caption += `🌐 *URL:* ${responsee.source}\n\n`;
 caption += `💬 *Summary:* ${responsee.summary}\n`;
     await Maria.sendMessage(from,  {image: {url: 'https://graph.org/file/c8ad7dc322c0b9b7eca8f.jpg'},caption: caption}, {quoted: m });
-    break
+break;
 
 
 case 'pokemon': {
